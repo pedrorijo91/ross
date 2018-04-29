@@ -1,0 +1,13 @@
+<h1>Hello, Rails!</h1>
+
+
+<%= form_with url: compute_path, local: true do |form| %>
+  <p>
+    <%= form.label :username %><br>
+    <%= form.text_field :username %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
