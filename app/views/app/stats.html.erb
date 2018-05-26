@@ -2,6 +2,10 @@
 
 
 <div>
-  <p>username: <%= @username %> </p>
+  <p>username: <%= username %> </p>
+
+  <% repos.each_with_index do |repo, index| %>
+    <div><%= "\##{index + 1} #{repo.name}: #{repo.url} (#{repo.stars}/#{repo.forks}) => #{repo.score}" %></div>
+  <%end %>
 
 </div>
