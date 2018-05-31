@@ -15,7 +15,7 @@ class RepoStats
   end
 
   private def compute_score
-    42 # TODO
+    42 # TODO remove
   end
 
 
