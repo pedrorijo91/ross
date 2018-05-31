@@ -2,10 +2,14 @@
 
 
 <div>
-  <p>username: <%= username %> </p>
+  <p>username: <%= stats.username %> </p>
+  <p>url: <%= stats.url %> </p>
+  <p>image: <%= stats.image %> </p>
+  <p>score: <%= stats.score %> </p>
+  <p>langs: <%= stats.languages.sort.reverse.map{ |lang| lang[0] } %> </p>
 
-  <% repos.each_with_index do |repo, index| %>
-    <div><%= "\##{index + 1} #{repo.name}: #{repo.url} (#{repo.stars}/#{repo.forks}) => #{repo.score}" %></div>
+  <% stats.repos.each_with_index do |repo, index| %>
+    <div><%= "\##{index + 1} #{repo.name}: #{repo.url} (#{repo.stars}/#{repo.forks})" %></div>
   <%end %>
 
 </div>

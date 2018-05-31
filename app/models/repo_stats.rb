@@ -1,22 +1,14 @@
 class RepoStats
 
-  attr_reader :name, :url, :stars, :forks
+  attr_reader :name, :url, :stars, :forks, :language
 
-  def initialize(id, name, url, stars, forks)
+  def initialize(id, name, url, stars, forks, language)
     @id = id
     @name = name
     @url = url
     @stars = stars
     @forks = forks
+    @language = language
   end
-
-  def score
-    @score ||= compute_score
-  end
-
-  private def compute_score
-    42 # TODO remove
-  end
-
 
 end

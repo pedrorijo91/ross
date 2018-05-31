@@ -11,9 +11,9 @@ class AppController < ApplicationController
     username = params[:username]
     puts "USERNAME: #{username}" # FIXME logger
 
-    stats = @github.fetch_repo_stats(username)
+    stats = @github.fetch_user_stats(username)
 
-    render locals: {username: username, repos: stats}
+    render locals: {stats: stats}
   end
 
 end
