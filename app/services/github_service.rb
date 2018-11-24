@@ -1,6 +1,9 @@
 class GithubService
 
   class Cache
+
+    CACHE_TTL = 1.hours
+
     private_class_method def self.cache_key_user(username)
       "github_cache_key/#{username}"
     end
@@ -14,7 +17,7 @@ class GithubService
     end
 
     private_class_method def self.write(key, value)
-      Rails.cache.write(key, value, expires_in: 1.hours)
+      Rails.cache.write(key, value, expires_in: CACHE_TTL)
     end
 
     def self.write_nbr_forks(username, nbr_forks)
@@ -26,7 +29,7 @@ class GithubService
     end
 
     def self.read_or_write_user_stats(username)
-      Rails.cache.fetch(cache_key_user(username), expires_in: 1.hours) do
+      Rails.cache.fetch(cache_key_user(username), expires_in: CACHE_TTL) do
         yield
       end
     end
@@ -48,7 +51,8 @@ class GithubService
   end
 
   private def fetch_user(username)
-    @client.user(user = username)
+    client_user = @client.user(user = username)
+    return client_user
   end
 
   private def fetch_repo_stats(username)
@@ -65,12 +69,17 @@ class GithubService
     Cache.read_or_write_user_stats(username) do
       puts "Computing user stats for #{username}"
       repo_stats = fetch_repo_stats(username)
+      nbr_forks = Cache.read_nbr_forks(username) # FIXME needs to be called after fetch_repo_stats
       nbr_stared = fetch_nbr_stared(username)
       user = fetch_user(username)
-      nbr_forks = Cache.read_nbr_forks(username)
+      orgs_user_belong = fetch_user_orgs(username)
 
-      UserStats.new(user.id, username, user.html_url, user.avatar_url, repo_stats, nbr_stared, nbr_forks)
+      UserStats.new(user.id, username, user.html_url, user.avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong)
     end
 
+  end
+
+  private def fetch_user_orgs(username)
+    return @client.organizations(user = username)
   end
 end

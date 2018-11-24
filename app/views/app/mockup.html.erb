@@ -1,0 +1,37 @@
+<h1>Open Source</h1>
+
+<div id="top">
+  <div id="user">
+    <%= stats.username %>
+    <%= stats.profile_url %>
+    <%= stats.avatar_url %>
+  </div>
+  <div id="score">
+    TODO 100 points
+  </div>
+  <div id="share">
+    TODO 100 points
+  </div>
+</div>
+
+<div id="content">
+  <div id="orgs">
+    <%= stats.orgs_user_belong %>
+    TODO org projects
+  </div>
+  <div id="projects">
+    <%= stats.repos[0..9] %> <%#= TOOO sort %>
+  </div>
+  <div id="langs">
+    <%= stats.languages.sort_by {|_key, value| value}.reverse[0..9] %>
+  </div>
+</div>
+
+<div id="bottom">
+  https://pedrorijo.com/
+</div>
+
+
+<div>
+  <a href="https://docs.google.com/drawings/d/1CUT0vwBdlnMPQI-aTDkc42QYMwauYxPMPklL3HJdGVM/edit">mockup</a>
+</div>

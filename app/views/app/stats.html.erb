@@ -3,13 +3,13 @@
 
 <div>
   <p>username: <%= stats.username %> </p>
-  <p>url: <%= stats.url %> </p>
-  <p>image: <%= stats.image %> </p>
+  <p>url: <%= stats.profile_url %> </p>
+  <p>image: <%= stats.avatar_url %> </p>
   <p>score: <%= stats.score %> </p>
   <p>langs: <%= stats.languages.sort.reverse.map{ |lang| lang[0] } %> </p>
 
   <% stats.repos.each_with_index do |repo, index| %>
-    <div><%= "\##{index + 1} #{repo.name}: #{repo.url} (#{repo.stars}/#{repo.forks})" %></div>
+    <div><%= "\##{index + 1} #{repo.name}: #{repo.profile_url} (#{repo.stars}/#{repo.forks})" %></div>
   <%end %>
 
 </div>

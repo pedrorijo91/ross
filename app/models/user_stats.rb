@@ -1,15 +1,32 @@
 class UserStats
 
-  attr_reader :username, :url, :image, :repos, :languages
+  attr_reader :username, :profile_url, :avatar_url, :repos, :languages, :orgs_user_belong
 
-  def initialize(id, username, url, image, repo_stats, nbr_stared, nbr_forks)
+=begin
+  username
+  image
+
+  top languages
+
+  points
+
+  for each personal + org (repo stats):
+    - owner/project
+    - nbr stars
+    - nbr forks
+
+=end
+
+
+  def initialize(id, username, profile_url, avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong)
     @id = id
     @username = username
-    @url = url
-    @image = image
+    @profile_url = profile_url
+    @avatar_url = avatar_url
     @repos = repo_stats
     @nbr_stared = nbr_stared
     @nbr_forks = nbr_forks
+    @orgs_user_belong = orgs_user_belong
   end
 
   def score
