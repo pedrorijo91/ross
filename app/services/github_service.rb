@@ -40,6 +40,7 @@ class GithubService
   def initialize
     @client = Octokit::Client.new
     @client.auto_paginate = true
+    @scoring_rules = ScoringRules.new
   end
 
   private def fetch_public_repos(username)
@@ -62,24 +63,36 @@ class GithubService
     forks = public_repos.select { |repo| repo.fork }
     Cache.write_nbr_forks(username, forks.size)
 
-    non_forks.map { |repo| RepoStats.new(repo.id, repo.name, repo.html_url, repo.stargazers_count, repo.forks_count, repo.language)}
+    non_forks.map { |repo|
+      score = @scoring_rules.score_repo(repo.stargazers_count, repo.forks_count)
+      RepoStats.new(repo.id, repo.name, repo.html_url, repo.stargazers_count, repo.forks_count, repo.language, score)
+    }
   end
 
-  def fetch_user_stats(username)
-    Cache.read_or_write_user_stats(username) do
-      puts "Computing user stats for #{username}"
-      repo_stats = fetch_repo_stats(username)
-      nbr_forks = Cache.read_nbr_forks(username) # FIXME needs to be called after fetch_repo_stats
-      nbr_stared = fetch_nbr_stared(username)
-      user = fetch_user(username)
-      orgs_user_belong = fetch_user_orgs(username)
-
-      UserStats.new(user.id, username, user.html_url, user.avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong)
+  def fetch_user_stats(username, forced = false)
+    if !forced
+      Cache.read_or_write_user_stats(username) do
+        compute_stats(username)
+      end
+    else
+      compute_stats(username)
     end
-
   end
 
   private def fetch_user_orgs(username)
-    return @client.organizations(user = username)
+    @client.organizations(user = username)
+  end
+  private
+
+  private def compute_stats(username) # TODO requests in parallel?
+    puts "Computing user stats for #{username}"
+    repo_stats = fetch_repo_stats(username)
+    nbr_forks = Cache.read_nbr_forks(username) # FIXME needs to be called after fetch_repo_stats
+    nbr_stared = fetch_nbr_stared(username)
+    user = fetch_user(username)
+    orgs_user_belong = fetch_user_orgs(username)
+
+    score = @scoring_rules.score_user(repo_stats, nbr_stared, nbr_forks)
+    UserStats.new(user.id, username, user.html_url, user.avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong, score)
   end
 end

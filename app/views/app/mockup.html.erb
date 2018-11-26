@@ -7,10 +7,10 @@
     <%= stats.avatar_url %>
   </div>
   <div id="score">
-    TODO 100 points
+    <%= stats.score %>
   </div>
   <div id="share">
-    TODO 100 points
+    <%= stats.score %>
   </div>
 </div>
 
@@ -20,7 +20,7 @@
     TODO org projects
   </div>
   <div id="projects">
-    <%= stats.repos[0..9] %> <%#= TOOO sort %>
+    <%= stats.repos.sort_by {|repo| repo.score}.reverse[0..9] %>
   </div>
   <div id="langs">
     <%= stats.languages.sort_by {|_key, value| value}.reverse[0..9] %>
@@ -34,4 +34,5 @@
 
 <div>
   <a href="https://docs.google.com/drawings/d/1CUT0vwBdlnMPQI-aTDkc42QYMwauYxPMPklL3HJdGVM/edit">mockup</a>
+  <a href="https://medium.freecodecamp.org/add-bootstrap-to-your-ruby-on-rails-project-8d76d70d0e3b">https://medium.freecodecamp.org/add-bootstrap-to-your-ruby-on-rails-project-8d76d70d0e3b</a>
 </div>

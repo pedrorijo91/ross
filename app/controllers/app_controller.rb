@@ -19,9 +19,11 @@ class AppController < ActionController::Base
   def mockup
     # username = params[:username]
     username = "pedrorijo91"
+
+    forced = if params['forced'] then true else false end
     puts "USERNAME: #{username}" # FIXME logger
 
-    stats = @github.fetch_user_stats(username)
+    stats = @github.fetch_user_stats(username, forced)
 
     render locals: {stats: stats}
   end
