@@ -1,6 +1,7 @@
-class AppController < ActionController::Base
+class AppController < ApplicationController
 
   def initialize
+    super()
     @github = GithubService.new
   end
 
