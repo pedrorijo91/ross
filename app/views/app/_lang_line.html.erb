@@ -1,11 +1,11 @@
-#<%= idx %> <%= lang %>
+<tr>
+  <th scope="row"><%= idx %></th>
+  <td><%= lang %></td>
+  <td>
+    <% lang_image = lang.downcase.gsub('#', 'sharp').gsub('++', 'pp').gsub(" ", "-") + "-lang-icon.svg"
 
-<% lang_image = lang.downcase.gsub('#', 'sharp').gsub('++', 'pp').gsub(" ", "-") + "-lang-icon.svg"
-
-   if ActionController::Base.helpers.resolve_asset_path(lang_image) %>
-    <%= image_tag(lang_image, width: '20px') %>
-  <% end %>
-
-<br/>
-
-<!-- TODO delete me? -->
+       if ActionController::Base.helpers.resolve_asset_path(lang_image) %>
+      <%= image_tag(lang_image, width: '20px') %>
+    <% end %>
+  </td>
+</tr>
