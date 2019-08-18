@@ -35,7 +35,7 @@ class UserStats
   end
 
   private def compute_languages
-    langs = @repos.map {|repo| repo.language}
+    langs = @repos.map {|repo| repo.language}.compact
     groupped = langs.group_by {|lang| lang}
 
     count = {}
