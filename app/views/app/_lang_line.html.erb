@@ -1,10 +1,9 @@
 #<%= idx %> <%= lang %>
 
-<% lang_image = lang.downcase + "-lang-icon.svg"
+<% lang_image = lang.downcase.gsub('#', 'sharp').gsub('++', 'pp').gsub(" ", "-") + "-lang-icon.svg"
 
    if ActionController::Base.helpers.resolve_asset_path(lang_image) %>
-  <%= image_tag(lang_image, width: '20px') %>
-
-<% end %>
+    <%= image_tag(lang_image, width: '20px') %>
+  <% end %>
 
 <br/>
