@@ -19,7 +19,7 @@ class AppController < ApplicationController
 
   def mockup
     # username = params[:username]
-    username = "miguelcarreiro"
+    username = "pedrorijo91"
 
     forced = if params['forced'] then true else false end
     puts "USERNAME: #{username}" # FIXME logger
