@@ -1,16 +1,16 @@
 <div class="container">
 
   <div class="row justify-content-center">
-    <h1>Open Source</h1>
+    <h1>The Open Source Game</h1>
   </div>
 
   <div class="row" id="top">
     <div class="col-md-4">
       <div class="row">
-        <img src="<%= stats.avatar_url %>" width="250px">
+        <img src="<%= stats.avatar_url %>" width="200px">
       </div>
       <div class="row">
-        <a href="<%= stats.profile_url %>"><%= stats.username %></a>
+        <a href="<%= stats.profile_url %>"><%= stats.username %></a> <!-- TODO center text  -->
       </div>
     </div>
     <div class="col-md-4">
@@ -18,10 +18,10 @@
     </div>
     <div class="col-md-4">
       <div class="row">
-        <img src="https://i.pinimg.com/originals/41/36/16/41361625cc44df07f81a620eac766468.png" width="200px">
+        <img src="https://i.pinimg.com/originals/41/36/16/41361625cc44df07f81a620eac766468.png" width="150px">
       </div>
       <div class="row">
-        share <!-- https://getbootstrap.com/docs/4.1/utilities/text/ -->
+        share <!-- TODO center text https://getbootstrap.com/docs/4.1/utilities/text/ -->
       </div>
     </div>
   </div>
@@ -37,11 +37,11 @@
           <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true">Personal</a>
         </li>
 
-        <!-- nao escala para muitas organizacoes -->
-        <% stats.orgs_user_belong.each do |org| %>
+        <!-- TODO nao escala para muitas organizacoes: crop name? -->
+        <% stats.orgs_user_belong.sort.each do |org| %>
           <li class="nav-item">
             <a class="nav-link" id="org-<%= org %>-tab" data-toggle="tab" href="#org-<%= org %>" role="tab" aria-controls="org-<%= org %>" aria-selected="false">
-              <%= org %> <span class="badge badge-light">org</span>
+              <%= org %></span> <span class="badge badge-light">org</span>
             </a>
           </li>
         <% end %>
@@ -52,26 +52,44 @@
         <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
           <% stats.repos.sort_by {|repo| repo.score}.reverse[0..9].each_with_index do |repo, idx| %>
             <div class="row">
-              <span class="col-md-5">
+              <span class="col-md-7">
                 #<%= idx + 1 %> <a href="<%= repo.url %>"><%= stats.username %>/<%= repo.name %></a>
               </span>
-              <span class="col-md-1">
-                <%= repo.score %><br>
-              </span>
-              <span class="col-md-1 offset-md-4">
-                ⭐️<%= repo.stars %><br>
+              <span class="col-md-1 offset-md-2">
+                🎯 <%= repo.score %> <!-- TODO font awesome icons -->
               </span>
               <span class="col-md-1">
-                🍴<%= repo.forks %><br>
+                ⭐️<%= repo.stars %> <!-- TODO font awesome icons -->
+              </span>
+              <span class="col-md-1">
+                🍴<%= repo.forks %> <!-- TODO font awesome icons -->
               </span>
             </div>
-
           <% end %>
+
+          <% (10 - stats.repos.size).times do |index| %>
+            <div class="row">
+            <span class="col-md-7">
+              #<%= stats.repos.size + index + 1 %> -
+            </span>
+              <span class="col-md-1 offset-md-2">
+              🎯 - <!-- TODO font awesome icons -->
+            </span>
+              <span class="col-md-1">
+              ⭐ - <!-- TODO font awesome icons -->
+            </span>
+              <span class="col-md-1">
+              🍴 - <!-- TODO font awesome icons -->
+            </span>
+            </div>
+          <% end %>
+
         </div>
 
         <% stats.orgs_user_belong.each do |org| %>
           <div class="tab-pane fade" id="org-<%= org %>" role="tabpanel" aria-labelledby="org-<%= org %>-tab">
-            Soon :)
+            <!-- TODO garantir 10 linhas -->
+            Soon :) <!-- TODO org repos -->
           </div>
         <% end %>
 
@@ -81,7 +99,11 @@
     <div class="col-md-3">
       <p>Top languages:</p>
       <% stats.languages.sort_by {|_key, value| value}.reverse[0..9].each_with_index do |lang, idx| %>
-        #<%= idx + 1 %> <%= lang[0] %><br />
+        #<%= idx + 1 %> <%= lang[0] %> <img src="scala-lang-icon.svg"/><br/> <!-- TODO https://www.vectorlogo.zone/logos/ruby-lang/index.html -->
+      <% end %>
+
+      <% (10 - stats.languages.size).times do |index| %>
+        #<%= stats.languages.size + index + 1 %> - <br/>
       <% end %>
     </div>
   </div>
@@ -90,8 +112,23 @@
   <br>
 
   <div class="row" id="bottom">
-    <div class="col-md-8"><a href="https://pedrorijo.com/">pedrorijo.com</a></div>
-    <div class="col-md-4">missing icons</div>
+    <div class="col-md-9"><a href="https://pedrorijo.com/">pedrorijo.com</a></div>
+    <div class="col-md-3">
+      <a href="https://www.linkedin.com/in/pedrorijo91/">👨‍💻</a>
+      <a href="https://twitter.com/pedrorijo91">🐦</a>
+      <a href="https://github.com/pedrorijo91">💻</a>
+      <a href="https://stackoverflow.com/users/4398050/pedrorijo91">❓</a>
+    </div> <!-- TODO font awesome -->
   </div>
 
 </div>
+
+<!--
+<div>
+  <a href="https://docs.google.com/drawings/d/1CUT0vwBdlnMPQI-aTDkc42QYMwauYxPMPklL3HJdGVM/edit">mockup</a>
+</div>
+
+crop names
+http://jsfiddle.net/chadkuehn/nu5zk/
+http://jsfiddle.net/zWvMH/
+-->

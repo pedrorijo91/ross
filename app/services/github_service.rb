@@ -80,9 +80,10 @@ class GithubService
   end
 
   private def fetch_user_orgs(username)
-    @client.organizations(user = username).map {|org| org.login }
+    # TODO org_name -> repos (adapt erb)
+    # @client.organizations(user = username).map {|org| org.login }
+    []
   end
-  private
 
   private def compute_stats(username) # TODO requests in parallel?
     puts "Computing user stats for #{username}"
