@@ -1,15 +1,97 @@
-<h1>Bye, Rails!</h1>
+<div class="container">
 
+  <div class="row justify-content-center">
+    <h1>Open Source</h1>
+  </div>
 
-<div>
-  <p>username: <%= stats.username %> </p>
-  <p>url: <%= stats.profile_url %> </p>
-  <p>image: <%= stats.avatar_url %> </p>
-  <p>score: <%= stats.score %> </p>
-  <p>langs: <%= stats.languages.sort.reverse.map{ |lang| lang[0] } %> </p>
+  <div class="row" id="top">
+    <div class="col-md-4">
+      <div class="row">
+        <img src="<%= stats.avatar_url %>" width="250px">
+      </div>
+      <div class="row">
+        <a href="<%= stats.profile_url %>"><%= stats.username %></a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <strong><%= stats.score %></strong> points
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <img src="https://i.pinimg.com/originals/41/36/16/41361625cc44df07f81a620eac766468.png" width="200px">
+      </div>
+      <div class="row">
+        share <!-- https://getbootstrap.com/docs/4.1/utilities/text/ -->
+      </div>
+    </div>
+  </div>
 
-  <% stats.repos.each_with_index do |repo, index| %>
-    <div><%= "\##{index + 1} #{repo.name}: #{repo.profile_url} (#{repo.stars}/#{repo.forks})" %></div>
-  <%end %>
+  <br>
+  <br>
+
+  <div class="row" id="main">
+    <div class="col-md-9">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        <li class="nav-item">
+          <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true">Personal</a>
+        </li>
+
+        <!-- nao escala para muitas organizacoes -->
+        <% stats.orgs_user_belong.each do |org| %>
+          <li class="nav-item">
+            <a class="nav-link" id="org-<%= org %>-tab" data-toggle="tab" href="#org-<%= org %>" role="tab" aria-controls="org-<%= org %>" aria-selected="false">
+              <%= org %> <span class="badge badge-light">org</span>
+            </a>
+          </li>
+        <% end %>
+
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+          <% stats.repos.sort_by {|repo| repo.score}.reverse[0..9].each_with_index do |repo, idx| %>
+            <div class="row">
+              <span class="col-md-5">
+                #<%= idx + 1 %> <a href="<%= repo.url %>"><%= stats.username %>/<%= repo.name %></a>
+              </span>
+              <span class="col-md-1">
+                <%= repo.score %><br>
+              </span>
+              <span class="col-md-1 offset-md-4">
+                ⭐️<%= repo.stars %><br>
+              </span>
+              <span class="col-md-1">
+                🍴<%= repo.forks %><br>
+              </span>
+            </div>
+
+          <% end %>
+        </div>
+
+        <% stats.orgs_user_belong.each do |org| %>
+          <div class="tab-pane fade" id="org-<%= org %>" role="tabpanel" aria-labelledby="org-<%= org %>-tab">
+            Soon :)
+          </div>
+        <% end %>
+
+      </div>
+
+    </div>
+    <div class="col-md-3">
+      <p>Top languages:</p>
+      <% stats.languages.sort_by {|_key, value| value}.reverse[0..9].each_with_index do |lang, idx| %>
+        #<%= idx + 1 %> <%= lang[0] %><br />
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="row" id="bottom">
+    <div class="col-md-8"><a href="https://pedrorijo.com/">pedrorijo.com</a></div>
+    <div class="col-md-4">missing icons</div>
+  </div>
 
 </div>

@@ -80,7 +80,7 @@ class GithubService
   end
 
   private def fetch_user_orgs(username)
-    @client.organizations(user = username)
+    @client.organizations(user = username).map {|org| org.login }
   end
   private
 
