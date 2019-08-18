@@ -1,0 +1,20 @@
+<div class="row">
+  <span class="col-md-6">
+    #<%= idx %>
+
+    <% if defined? repo_url %>
+      <a href="<%= repo_url %>"><%= repo_name %></a>
+    <% else %>
+      <%= repo_name %>
+    <% end %>
+  </span>
+  <span class="col-md-2">
+    <i class="fas fa-bullseye"></i> <%= repo_score %>
+  </span>
+  <span class="col-md-2">
+    <i class="far fa-star"></i> ️<%= repo_stars %>
+  </span>
+  <span class="col-md-2">
+    <i class="fas fa-code-branch"></i> <%= repo_forks %>
+  </span>
+</div>

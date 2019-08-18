@@ -10,7 +10,7 @@
         <img src="<%= stats.avatar_url %>" width="200px">
       </div>
       <div class="row">
-        <a href="<%= stats.profile_url %>"><%= stats.username %></a> <!-- TODO center text  -->
+        <a href="<%= stats.profile_url %>"><%= stats.username %></a>
       </div>
     </div>
     <div class="col-md-4">
@@ -21,7 +21,7 @@
         <img src="https://i.pinimg.com/originals/41/36/16/41361625cc44df07f81a620eac766468.png" width="150px">
       </div>
       <div class="row">
-        share <!-- TODO center text https://getbootstrap.com/docs/4.1/utilities/text/ -->
+        share
       </div>
     </div>
   </div>
@@ -37,7 +37,6 @@
           <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true">Personal</a>
         </li>
 
-        <!-- TODO nao escala para muitas organizacoes: crop name? -->
         <% stats.orgs_user_belong.sort.each do |org| %>
           <li class="nav-item">
             <a class="nav-link" id="org-<%= org %>-tab" data-toggle="tab" href="#org-<%= org %>" role="tab" aria-controls="org-<%= org %>" aria-selected="false">
@@ -88,8 +87,7 @@
 
         <% stats.orgs_user_belong.each do |org| %>
           <div class="tab-pane fade" id="org-<%= org %>" role="tabpanel" aria-labelledby="org-<%= org %>-tab">
-            <!-- TODO garantir 10 linhas -->
-            Soon :) <!-- TODO org repos -->
+            Soon :)
           </div>
         <% end %>
 
@@ -121,7 +119,6 @@
   <div class="row" id="bottom">
     <div class="col-md-9"><a href="https://pedrorijo.com/">pedrorijo.com</a></div>
     <div class="col-md-3">
-      <!-- TODO no blue icons -->
       <a href="https://www.linkedin.com/in/pedrorijo91/"><i class="fab fa-linkedin fa-lg"></i></a>
       <a href="https://twitter.com/pedrorijo91"><i class="fab fa-twitter fa-lg"></i></a>
       <a href="https://github.com/pedrorijo91"><i class="fab fa-github fa-lg"></i></a>
