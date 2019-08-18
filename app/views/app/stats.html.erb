@@ -41,7 +41,7 @@
         <% stats.orgs_user_belong.sort.each do |org| %>
           <li class="nav-item">
             <a class="nav-link" id="org-<%= org %>-tab" data-toggle="tab" href="#org-<%= org %>" role="tab" aria-controls="org-<%= org %>" aria-selected="false">
-              <%= org %></span> <span class="badge badge-light">org</span>
+              <%= org %> <span class="badge badge-light">org</span>
             </a>
           </li>
         <% end %>
@@ -52,17 +52,17 @@
         <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
           <% stats.repos.sort_by {|repo| repo.score}.reverse[0..9].each_with_index do |repo, idx| %>
             <div class="row">
-              <span class="col-md-7">
+              <span class="col-md-6">
                 #<%= idx + 1 %> <a href="<%= repo.url %>"><%= stats.username %>/<%= repo.name %></a>
               </span>
-              <span class="col-md-1 offset-md-2">
-                🎯 <%= repo.score %> <!-- TODO font awesome icons -->
+              <span class="col-md-2">
+                <i class="fas fa-bullseye"></i> <%= repo.score %>
               </span>
-              <span class="col-md-1">
-                ⭐️<%= repo.stars %> <!-- TODO font awesome icons -->
+              <span class="col-md-2">
+                <i class="far fa-star"></i> ️<%= repo.stars %>
               </span>
-              <span class="col-md-1">
-                🍴<%= repo.forks %> <!-- TODO font awesome icons -->
+              <span class="col-md-2">
+                <i class="fas fa-code-branch"></i> <%= repo.forks %>
               </span>
             </div>
           <% end %>
@@ -73,13 +73,13 @@
               #<%= stats.repos.size + index + 1 %> -
             </span>
               <span class="col-md-1 offset-md-2">
-              🎯 - <!-- TODO font awesome icons -->
+              <i class="fas fa-bullseye"></i> -
             </span>
               <span class="col-md-1">
-              ⭐ - <!-- TODO font awesome icons -->
+              <i class="far fa-star"></i> -
             </span>
               <span class="col-md-1">
-              🍴 - <!-- TODO font awesome icons -->
+              <i class="fas fa-code-branch"></i> -
             </span>
             </div>
           <% end %>
@@ -99,7 +99,14 @@
     <div class="col-md-3">
       <p>Top languages:</p>
       <% stats.languages.sort_by {|_key, value| value}.reverse[0..9].each_with_index do |lang, idx| %>
-        #<%= idx + 1 %> <%= lang[0] %> <img src="scala-lang-icon.svg"/><br/> <!-- TODO https://www.vectorlogo.zone/logos/ruby-lang/index.html -->
+        #<%= idx + 1 %> <%= lang[0] %>
+
+        <% if ActionController::Base.helpers.resolve_asset_path(lang[0].downcase + "-lang-icon.svg") %>
+          <%= image_tag(lang[0].downcase + "-lang-icon.svg", width: '20px') %>
+        <% end %>
+
+        <br/>
+
       <% end %>
 
       <% (10 - stats.languages.size).times do |index| %>
@@ -114,21 +121,12 @@
   <div class="row" id="bottom">
     <div class="col-md-9"><a href="https://pedrorijo.com/">pedrorijo.com</a></div>
     <div class="col-md-3">
-      <a href="https://www.linkedin.com/in/pedrorijo91/">👨‍💻</a>
-      <a href="https://twitter.com/pedrorijo91">🐦</a>
-      <a href="https://github.com/pedrorijo91">💻</a>
-      <a href="https://stackoverflow.com/users/4398050/pedrorijo91">❓</a>
-    </div> <!-- TODO font awesome -->
+      <!-- TODO no blue icons -->
+      <a href="https://www.linkedin.com/in/pedrorijo91/"><i class="fab fa-linkedin fa-lg"></i></a>
+      <a href="https://twitter.com/pedrorijo91"><i class="fab fa-twitter fa-lg"></i></a>
+      <a href="https://github.com/pedrorijo91"><i class="fab fa-github fa-lg"></i></a>
+      <a href="https://stackoverflow.com/users/4398050/pedrorijo91"><i class="fab fa-stack-overflow fa-lg"></i></a>
+    </div>
   </div>
 
 </div>
-
-<!--
-<div>
-  <a href="https://docs.google.com/drawings/d/1CUT0vwBdlnMPQI-aTDkc42QYMwauYxPMPklL3HJdGVM/edit">mockup</a>
-</div>
-
-crop names
-http://jsfiddle.net/chadkuehn/nu5zk/
-http://jsfiddle.net/zWvMH/
--->
