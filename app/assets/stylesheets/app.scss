@@ -5,9 +5,10 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+/*
 .crop-text-100 {
-  width: 10px; /* the element needs a fixed width (in px, em, %, etc) */
-  overflow: hidden; /* make sure it hides the content that overflows */
-  white-space: nowrap; /* don't break the line */
-  text-overflow: ellipsis; /* give the beautiful '...' effect */
-}
+  width: 10px; !* the element needs a fixed width (in px, em, %, etc) *!
+  overflow: hidden; !* make sure it hides the content that overflows *!
+  white-space: nowrap; !* don't break the line *!
+  text-overflow: ellipsis; !* give the beautiful '...' effect *!
+}*/
