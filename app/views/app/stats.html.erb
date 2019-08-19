@@ -1,11 +1,11 @@
 <div class="container">
 
   <div class="row justify-content-center">
-    <h1>The Open Source Game</h1>
+    <h1 class="display-3">The Open Source Game</h1>
   </div>
 
   <div class="row" id="top">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="row">
         <figure>
           <a href="<%= stats.profile_url %>"><img class="img-thumbnail" src="<%= stats.avatar_url %>" width="200px"></a>
@@ -13,16 +13,16 @@
         </figure>
       </div>
     </div>
-    <div class="col-md-4"> <!-- TODO beautify -->
-      <p><strong><%= stats.score %></strong> points</p>
-      <p><%= level_label(stats.score) %></p>
+    <div class="row col-md-6 justify-content-center">
+      <h2 class="display-4"><%= stats.score %> points</h2>
+      <h3 class="display-5"><%= level_label(stats.score) %></h3>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="row justify-content-center">
         <img src="https://i.pinimg.com/originals/41/36/16/41361625cc44df07f81a620eac766468.png" width="150px">
       </div>
       <div class="row justify-content-center">
-        share <!-- TODO center text https://getbootstrap.com/docs/4.1/utilities/text/ -->
+        share <!-- TODO link -->
       </div>
     </div>
   </div>
@@ -54,9 +54,6 @@ crop names
 http://jsfiddle.net/chadkuehn/nu5zk/
 http://jsfiddle.net/zWvMH/
 
-table:
-https://getbootstrap.com/docs/4.1/content/tables/
-
 users:
 miguelcarreiro
 propensive
@@ -65,4 +62,6 @@ dnlserrano
 dsyme
 alexischr
 4u7
+github
+torvalds
 -->
