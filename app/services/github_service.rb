@@ -52,15 +52,14 @@ class GithubService
   end
 
   private def fetch_user(username)
-    client_user = @client.user(user = username)
-    return client_user
+    @client.user(user = username)
   end
 
   private def fetch_repo_stats(username)
     public_repos = fetch_public_repos(username)
     non_forks = public_repos.select { |repo| !repo.fork }
 
-    forks = public_repos.select { |repo| repo.fork }
+    forks = public_repos.select(&:fork)
     Cache.write_nbr_forks(username, forks.size)
 
     non_forks.map { |repo|
@@ -75,7 +74,7 @@ class GithubService
         compute_stats(username)
       end
     else
-      compute_stats(username)
+      compute_stats(username) # TODO update cache
     end
   end
 

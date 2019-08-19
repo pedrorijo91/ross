@@ -9,3 +9,5 @@ class ScoringRules
   end
 
 end
+
+# TODO validate scores
