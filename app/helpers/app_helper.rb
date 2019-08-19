@@ -4,15 +4,15 @@ module AppHelper
     case score
     # TODO add labels
     when 0
-      "zero?"
+      "Go for it! You are more than capable!"
     when 1..100
-      "loser"
+      "The first step is the hardest one 🎉"
     when 100..1000
-      "hmmmm"
+      "It doesn't matter how slow you go, as long as you don't stop"
     when 1000..10000
-      "wow"
+      "On the path to become a rockstar, are you?"
     else
-      return 'not bad'
+      return "The (open-source) world is yours!"
     end
   end
 end
