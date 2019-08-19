@@ -10,9 +10,9 @@ class AppController < ApplicationController
 
   def stats
     username = params[:username]
-    puts "USERNAME: #{username}" # FIXME logger
-
     forced = if params['forced'] then true else false end
+    Rails.logger.debug "Stats for #{username} (forced=#{forced})"
+
     stats = @github.fetch_user_stats(username, forced)
 
     render locals: {stats: stats}

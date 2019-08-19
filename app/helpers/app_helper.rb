@@ -1,8 +1,6 @@
 module AppHelper
   def level_label(score)
-    puts "score: #{score} -> #{score < 100}"
     case score
-    # TODO add labels
     when 0
       "Go for it! You are more than capable!"
     when 1..100

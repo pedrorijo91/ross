@@ -71,6 +71,7 @@ class GithubService
   def fetch_user_stats(username, forced = false)
     if !forced
       Cache.read_or_write_user_stats(username) do
+        Rails.logger.debug "No cache entry for #{username}, computing."
         compute_stats(username)
       end
     else
@@ -85,7 +86,8 @@ class GithubService
   end
 
   private def compute_stats(username) # TODO requests in parallel?
-    puts "Computing user stats for #{username}"
+    Rails.logger.info "Computing user stats for #{username}"
+
     repo_stats = fetch_repo_stats(username)
     nbr_forks = Cache.read_nbr_forks(username) # FIXME needs to be called after fetch_repo_stats
     nbr_stared = fetch_nbr_stared(username)
