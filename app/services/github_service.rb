@@ -94,6 +94,6 @@ class GithubService
     orgs_user_belong = fetch_user_orgs(username)
 
     score = @scoring_rules.score_user(repo_stats, nbr_stared, nbr_forks)
-    UserStats.new(user.id, username, user.html_url, user.avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong, score)
+    UserStats.new(user.id, username, user.name, user.html_url, user.avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong, score)
   end
 end

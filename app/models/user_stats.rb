@@ -1,6 +1,6 @@
 class UserStats
 
-  attr_reader :username, :profile_url, :avatar_url, :repos, :languages, :orgs_user_belong, :score
+  attr_reader :username, :name, :profile_url, :avatar_url, :repos, :languages, :orgs_user_belong, :score
 
 =begin
   username
@@ -18,9 +18,10 @@ class UserStats
 =end
 
 
-  def initialize(id, username, profile_url, avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong, score)
+  def initialize(id, username, name, profile_url, avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong, score)
     @id = id
     @username = username
+    @name = name
     @profile_url = profile_url
     @avatar_url = avatar_url
     @repos = repo_stats
