@@ -57,15 +57,15 @@ class GithubService
 
   private def fetch_repo_stats(username)
     public_repos = fetch_public_repos(username)
-    non_forks = public_repos.select { |repo| !repo.fork }
+    non_forks = public_repos.reject(&:fork)
 
     forks = public_repos.select(&:fork)
     Cache.write_nbr_forks(username, forks.size)
 
-    non_forks.map { |repo|
+    non_forks.map do |repo|
       score = @scoring_rules.score_repo(repo.stargazers_count, repo.forks_count)
       RepoStats.new(repo.id, repo.name, repo.html_url, repo.stargazers_count, repo.forks_count, repo.language, score)
-    }
+    end
   end
 
   def fetch_user_stats(username, forced = false)
@@ -76,16 +76,16 @@ class GithubService
   end
 
   private def fetch_user_orgs(username)
-    # TODO org_name -> repos (adapt erb)
+    # TODO: org_name -> repos (adapt erb)
     # @client.organizations(user = username).map {|org| org.login }
     []
   end
 
-  private def compute_stats(username) # TODO requests in parallel?
+  private def compute_stats(username) # TODO: requests in parallel?
     Rails.logger.info "Computing user stats for #{username}"
 
     repo_stats = fetch_repo_stats(username)
-    nbr_forks = Cache.read_nbr_forks(username) # FIXME needs to be called after fetch_repo_stats
+    nbr_forks = Cache.read_nbr_forks(username) # FIXME: needs to be called after fetch_repo_stats
     nbr_stared = fetch_nbr_stared(username)
     user = fetch_user(username)
     orgs_user_belong = fetch_user_orgs(username)
