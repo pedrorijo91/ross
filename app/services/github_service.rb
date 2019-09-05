@@ -38,7 +38,12 @@ class GithubService
   private_constant :Cache
 
   def initialize
+    Octokit.configure{|c|
+      c.access_token = '17912fe0459c1d25b7a58b924545f50dabdc9d19' # FIXME https://github.com/pedrorijo91/ross-issues/issues/3
+    }
+
     @client = Octokit::Client.new
+
     @client.auto_paginate = true
     @scoring_rules = ScoringRules.new
   end
@@ -76,16 +81,16 @@ class GithubService
   end
 
   private def fetch_user_orgs(username)
-    # TODO: org_name -> repos (adapt erb)
+    # TODO https://github.com/pedrorijo91/ross-issues/issues/1 org_name -> repos (adapt erb)
     # @client.organizations(user = username).map {|org| org.login }
     []
   end
 
-  private def compute_stats(username) # TODO: requests in parallel?
+  private def compute_stats(username) # TODO https://github.com/pedrorijo91/ross-issues/issues/4 requests in parallel?
     Rails.logger.info "Computing user stats for #{username}"
 
     repo_stats = fetch_repo_stats(username)
-    nbr_forks = Cache.read_nbr_forks(username) # FIXME: needs to be called after fetch_repo_stats
+    nbr_forks = Cache.read_nbr_forks(username) # TODO https://github.com/pedrorijo91/ross-issues/issues/4 needs to be called after fetch_repo_stats
     nbr_stared = fetch_nbr_stared(username)
     user = fetch_user(username)
     orgs_user_belong = fetch_user_orgs(username)

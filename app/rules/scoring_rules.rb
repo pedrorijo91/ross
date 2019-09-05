@@ -10,4 +10,4 @@ class ScoringRules
 
 end
 
-# TODO validate scores
+# TODO https://github.com/pedrorijo91/ross-issues/issues/2

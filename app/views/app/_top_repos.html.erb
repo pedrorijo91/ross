@@ -4,7 +4,7 @@
     <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true">Personal</a>
   </li>
 
-  <!-- TODO nao escala para muitas organizacoes: crop name? -->
+  <!-- TODO https://github.com/pedrorijo91/ross-issues/issues/1 nao escala para muitas organizacoes: crop name? -->
   <% stats.orgs_user_belong.sort.each do |org| %>
     <li class="nav-item">
       <a class="nav-link" id="org-<%= org %>-tab" data-toggle="tab" href="#org-<%= org %>" role="tab" aria-controls="org-<%= org %>" aria-selected="false">
@@ -41,8 +41,8 @@
 
   <% stats.orgs_user_belong.each do |org| %>
     <div class="tab-pane fade" id="org-<%= org %>" role="tabpanel" aria-labelledby="org-<%= org %>-tab">
-      <!-- TODO garantir 10 linhas -->
-      Soon :) <!-- TODO org repos -->
+      <!-- TODO https://github.com/pedrorijo91/ross-issues/issues/1 garantir 10 linhas -->
+      Soon :) <!-- TODO https://github.com/pedrorijo91/ross-issues/issues/1 org repos -->
     </div>
   <% end %>
 
