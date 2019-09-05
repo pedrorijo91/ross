@@ -28,9 +28,9 @@ class GithubService
       read(cache_key_forks(username))
     end
 
-    def self.read_or_write_user_stats(username)
-      Rails.cache.fetch(cache_key_user(username), expires_in: CACHE_TTL) do
-        yield
+    def self.read_or_write_user_stats(username, forced)
+      Rails.cache.fetch(cache_key_user(username), expires_in: CACHE_TTL, force: forced) do
+        yield # will execute computation block if there's no entry
       end
     end
   end
@@ -69,13 +69,9 @@ class GithubService
   end
 
   def fetch_user_stats(username, forced = false)
-    if !forced
-      Cache.read_or_write_user_stats(username) do
-        Rails.logger.debug "No cache entry for #{username}, computing."
-        compute_stats(username)
-      end
-    else
-      compute_stats(username) # TODO update cache
+    Cache.read_or_write_user_stats(username, forced) do
+      Rails.logger.debug "No cache entry for #{username}, computing."
+      compute_stats(username)
     end
   end
 
