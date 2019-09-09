@@ -38,9 +38,12 @@ class GithubService
   private_constant :Cache
 
   def initialize
-    Octokit.configure{|c|
-      c.access_token = '17912fe0459c1d25b7a58b924545f50dabdc9d19' # FIXME https://github.com/pedrorijo91/ross-issues/issues/3
-    }
+
+    if ENV['GITHUB_TOKEN']
+      Octokit.configure{|c|
+        c.access_token = ENV['GITHUB_TOKEN']
+      }
+    end
 
     @client = Octokit::Client.new
 
