@@ -36,7 +36,9 @@
     </div>
   </div>
 
-  <%= render 'footer' %> <!-- TODO https://github.com/pedrorijo91/ross-issues/issues/6 flag -->
+  <% if ENV['FOOTER_ENABLED'] == 'true' %>
+    <%= render 'footer' %>
+  <% end %>
 
 </div>
 
