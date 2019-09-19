@@ -5,11 +5,10 @@ class AppController < ApplicationController
     @github = GithubService.new
   end
 
-  def index
-  end
+  def index; end
 
   def form_post
-    redirect_to "/app/stats/#{params[:username]}"
+    redirect_to user_stats_path(params[:username])
   end
 
   def stats
