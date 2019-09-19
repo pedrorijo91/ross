@@ -8,14 +8,18 @@ class AppController < ApplicationController
   def index
   end
 
+  def form_post
+    redirect_to "/app/stats/#{params[:username]}"
+  end
+
   def stats
     username = params[:username]
-    forced = if params['forced'] then true else false end
+    forced = params['forced'] ? true : false
     Rails.logger.debug "Stats for #{username} (forced=#{forced})"
 
     stats = @github.fetch_user_stats(username, forced)
 
-    render locals: {stats: stats}
+    render locals: { stats: stats }
   end
 
 end
