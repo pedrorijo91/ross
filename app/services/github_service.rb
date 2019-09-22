@@ -92,6 +92,8 @@ class GithubService
   private def compute_stats(username) # TODO https://github.com/pedrorijo91/ross-issues/issues/4 requests in parallel?
     Rails.logger.info "Computing user stats for #{username}"
 
+    # TODO what if no user? https://github.com/pedrorijo91/ross-issues/issues/12
+
     repo_stats = fetch_repo_stats(username)
     nbr_forks = Cache.read_nbr_forks(username) # TODO https://github.com/pedrorijo91/ross-issues/issues/4 needs to be called after fetch_repo_stats
     nbr_stared = fetch_nbr_stared(username)

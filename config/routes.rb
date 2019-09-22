@@ -5,5 +5,5 @@ Rails.application.routes.draw do
 
   get  '/stats/:username', to: 'app#stats', as: :user_stats
 
-  root 'app#index'
+  root 'app#index', as: :home
 end
