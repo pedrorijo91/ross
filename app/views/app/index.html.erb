@@ -1,10 +1,15 @@
 <h1>Hello, Rails!</h1>
 
+<% if notice %>
+  <div class="alert alert-warning" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
 
 <%= form_with url: compute_path, local: true do |form| %>
   <p>
     <%= form.label :username %><br>
-    <%= form.text_field :username %>
+    <%= form.text_field :username, required: true %>
   </p>
 
   <p>
