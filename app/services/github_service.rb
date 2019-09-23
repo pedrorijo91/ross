@@ -92,15 +92,28 @@ class GithubService
   private def compute_stats(username) # TODO https://github.com/pedrorijo91/ross-issues/issues/4 requests in parallel?
     Rails.logger.info "Computing user stats for #{username}"
 
-    # TODO what if no user? https://github.com/pedrorijo91/ross-issues/issues/12
+    if !user_exists?(username)
+      nil
+    else
+      repo_stats = fetch_repo_stats(username)
+      nbr_forks = Cache.read_nbr_forks(username) # TODO https://github.com/pedrorijo91/ross-issues/issues/4 needs to be called after fetch_repo_stats
+      nbr_stared = fetch_nbr_stared(username)
+      user = fetch_user(username)
+      orgs_user_belong = fetch_user_orgs(username)
 
-    repo_stats = fetch_repo_stats(username)
-    nbr_forks = Cache.read_nbr_forks(username) # TODO https://github.com/pedrorijo91/ross-issues/issues/4 needs to be called after fetch_repo_stats
-    nbr_stared = fetch_nbr_stared(username)
-    user = fetch_user(username)
-    orgs_user_belong = fetch_user_orgs(username)
-
-    score = @scoring_rules.score_user(repo_stats, nbr_stared, nbr_forks)
-    UserStats.new(user.id, username, user.name, user.html_url, user.avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong, score)
+      score = @scoring_rules.score_user(repo_stats, nbr_stared, nbr_forks)
+      UserStats.new(user.id, username, user.name, user.html_url, user.avatar_url, repo_stats, nbr_stared, nbr_forks, orgs_user_belong, score)
+    end
   end
+
+  private def user_exists?(username)
+    Rails.logger.info "Checking for user #{username}"
+    @client.user(username)
+    Rails.logger.info "User found: #{username}"
+    true
+  rescue Octokit::NotFound => e
+    Rails.logger.warn "User not found (#{username}): #{e}"
+    false
+  end
+
 end
