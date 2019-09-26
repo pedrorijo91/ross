@@ -13,15 +13,15 @@
   text-overflow: ellipsis; !* give the beautiful '...' effect *!
 }*/
 
-#bottom a {
+.black-link {
   color: black;
-}
-
-h3.display-5 {
-  text-align: center;
 }
 
 .row-height {
   max-height: 200px;
   max-width: 100%;
+}
+
+.title {
+  text-align: center;
 }
