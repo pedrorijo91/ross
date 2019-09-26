@@ -25,7 +25,7 @@ class AppController < ApplicationController
     stats = @github.fetch_user_stats(username, forced)
 
     if stats.nil? # as for now, if we return nil it means username does not exist.
-      redirect_to home_path, alert: "Invalid username: #{username}"
+      redirect_to home_path, alert: "Invalid username: #{username}. The submitted username doesn't seem to exist on GitHub"
     else
       render locals: { stats: stats }
     end
