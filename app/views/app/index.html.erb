@@ -1,27 +1,30 @@
-<h1>Hello, Rails!</h1>
+<div class="container h-100">
 
-<% if alert %>
-  <div class="alert alert-danger" role="alert">
-    <%= alert %>
+  <div class="row justify-content-center">
+    <h1 class="display-3 title">Welcome to the Open-Source contributor game!</h1>
   </div>
-<% end %>
 
-<% if notice %>
-  <div class="alert alert-warning" role="alert">
-    <%= notice %>
+  <% if alert %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= alert %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+
+  <% if notice %>
+    <div class="alert alert-warning" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <div class="row h-75 justify-content-center align-items-center">
+    <%= form_with url: compute_path, local: true, class: "form-inline justify-content-center" do |form| %>
+      <%= form.label :username, "GitHub Username", class: "sr-only" %>
+      <%= form.text_field :username, required: true, class: "form-control mb-2 mr-sm-2", placeholder: "GitHub username" %>
+      <%= form.submit "Compute my stats", class: "btn btn-primary mb-2" %>
+    <% end %>
   </div>
-<% end %>
 
-<%= form_with url: compute_path, local: true do |form| %>
-  <p>
-    <%= form.label :username %><br>
-    <%= form.text_field :username, required: true %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
-
-
-<!-- TODO https://github.com/pedrorijo91/ross-issues/issues/5 -->
+</div>
